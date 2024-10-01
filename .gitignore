@@ -1,0 +1,14 @@
+# Игнорировать директорию node_modules
+node_modules/
+
+# Игнорировать файлы конфигурации IDE
+.idea/
+.vscode/
+
+# Игнорировать файлы логов
+*.log
+
+# Игнорировать файлы, созданные npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
