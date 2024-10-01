@@ -81,6 +81,9 @@ document.addEventListener("keydown", function (event) {
             var newCircle = spawnerController.spawnCircle(World, world, stage);
             objectsToUpdate.push(newCircle);
         }
+    } else if (event.code === "KeyR"){
+        spawnerController.canSpawn = true;
+        restartGame();
     }
 });
 
@@ -160,6 +163,18 @@ Events.on(engine, 'collisionStart', function (event) {
         }
     }
 });
+
+function restartGame(){
+    userScore.resetScore();
+
+    objectsToUpdate.forEach(obj => {
+        if (obj instanceof Circle) {
+            removeObject(world, stage, obj);
+        }
+    });
+
+    objectsToUpdate = objectsToUpdate.filter(obj => !(obj instanceof Circle));
+}
 
 function removeObject(world, stage, obj) {
     if (Composite.allBodies(world).includes(obj.collider)) {

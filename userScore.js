@@ -26,6 +26,10 @@ export class UserScore{
         this.updateView();
         
     }
+    resetScore(){
+        this.score = 0;
+        this.updateView();
+    }
     updateView(){
         this.scoreView.text = "Счет: " + this.score;
 
