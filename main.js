@@ -3,7 +3,7 @@ import { Wall } from './Walls.js';
 import { UserScore } from './userScore.js';
 import { DeadZone } from './deadZone.js';
 import { SpawnerController,SpawnerView } from './Spawner.js';
-
+import { Guide } from './Guide.js';
 
 
 const circleConfigs = [
@@ -63,8 +63,8 @@ var deadZone = new DeadZone(Bodies, 300, 70, 700, 300, 1);
 deadZone.addToWorldAndStage(World, world, stage);
 objectsToUpdate.push(deadZone);
 
-var userScore = new UserScore(100,5000,700,100,circleConfigs,stage);
-
+var userScore = new UserScore(0,5000,700,100,circleConfigs,stage);
+var guide = new Guide(700,400,stage);
 
 var spawnerView = new SpawnerView(100, 150, 50, 50);
 spawnerView.addToStage(stage);
