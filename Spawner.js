@@ -10,13 +10,13 @@ export class SpawnerController {
         this.stage = stage;
         this.currentX = view.posX;
 
-        // Заранее генерируем следующий круг
+        this.canSpawn = true;
+
         this.nextCircleSize = Math.floor(Math.random() * 4);
         this.nextCircleShape = this.createNextCircleShape(this.nextCircleSize);
 
-        // Добавляем графику следующего круга на сцену
         this.nextCircleShape.x = this.view.posX + this.view.width / 2;
-        this.nextCircleShape.y = this.view.posY - 50; // Позиционируем над Spawner
+        this.nextCircleShape.y = this.view.posY - 50; 
         this.stage.addChild(this.nextCircleShape);
     }
 
@@ -44,11 +44,9 @@ export class SpawnerController {
     }
 
     spawnCircle(World, world, stage) {
-        // Создаем круг с заранее сгенерированным размером
         var circle = new Circle(this.circleConfigs, this.Bodies, this.nextCircleSize, this.currentX + this.view.width / 2, this.view.posY);
         circle.addToWorldAndStage(World, world, stage);
 
-        // Генерируем новый круг для отображения
         this.nextCircleSize = Math.floor(Math.random() * 4);
         this.updateNextCircleShape();
 
@@ -56,22 +54,17 @@ export class SpawnerController {
     }
 
     updateNextCircleShape() {
-        // Удаляем старую графику с сцены
         this.stage.removeChild(this.nextCircleShape);
 
-        // Создаем новую графику следующего круга
         this.nextCircleShape = this.createNextCircleShape(this.nextCircleSize);
 
-        // Позиционируем ее над Spawner
         this.nextCircleShape.x = this.currentX + this.view.width / 2;
         this.nextCircleShape.y = this.view.posY - 50;
 
-        // Добавляем на сцену
         this.stage.addChild(this.nextCircleShape);
     }
 
     updateNextCirclePosition() {
-        // Обновляем позицию следующего круга, чтобы он двигался вместе с Spawner
         this.nextCircleShape.x = this.currentX + this.view.width / 2;
     }
 }
@@ -83,7 +76,6 @@ export class SpawnerView {
         this.width = width;
         this.height = height;
 
-        // Рисуем треугольник, обозначающий спавнер
         this.image = new createjs.Shape();
         this.image.graphics.beginFill("blue").moveTo(0, 0).lineTo(width, 0).lineTo(width / 2, height).lineTo(0, 0);
         this.image.x = posX;

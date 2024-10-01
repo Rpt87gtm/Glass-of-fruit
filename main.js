@@ -59,7 +59,7 @@ Runner.run(engine);
 
 
 
-var deadZone = new DeadZone(Bodies, 300, 100, 700, 300, 1);
+var deadZone = new DeadZone(Bodies, 300, 70, 700, 300, 1);
 deadZone.addToWorldAndStage(World, world, stage);
 objectsToUpdate.push(deadZone);
 
@@ -77,8 +77,10 @@ document.addEventListener("keydown", function (event) {
     } else if (event.code === "KeyD") {
         spawnerController.moveRight();
     } else if (event.code === "Space") {
-        var newCircle = spawnerController.spawnCircle(World, world, stage);
-        objectsToUpdate.push(newCircle);
+        if(spawnerController.canSpawn){
+            var newCircle = spawnerController.spawnCircle(World, world, stage);
+            objectsToUpdate.push(newCircle);
+        }
     }
 });
 
@@ -115,6 +117,7 @@ Events.on(engine, 'collisionEnd', function (event) {
 });
 
 deadZone.addEventListener("gameOver", function () {
+    spawnerController.canSpawn = false;
     console.log("Вы проиграли!");
 });
 
@@ -157,6 +160,7 @@ Events.on(engine, 'collisionStart', function (event) {
         }
     }
 });
+
 function removeObject(world, stage, obj) {
     if (Composite.allBodies(world).includes(obj.collider)) {
         Matter.World.remove(world, obj.collider);
