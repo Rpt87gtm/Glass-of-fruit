@@ -42,11 +42,11 @@ var floor = new Wall(Bodies,325,700,650,100);
 floor.addToWorldAndStage(World,world,stage);
 objectsToUpdate.push(floor);
 
-var wall_1 = new Wall(Bodies,50,400,100,550);
+var wall_1 = new Wall(Bodies,50,400,100,600);
 wall_1.addToWorldAndStage(World,world,stage);
 objectsToUpdate.push(wall_1);
 
-var wall_2 = new Wall(Bodies,600,400,100,550);
+var wall_2 = new Wall(Bodies,600,400,100,600);
 wall_2.addToWorldAndStage(World,world,stage);
 objectsToUpdate.push(wall_2);
 
@@ -65,6 +65,14 @@ objectsToUpdate.push(deadZone);
 
 var userScore = new UserScore(0,5000,700,100,circleConfigs,stage);
 var guide = new Guide(700,400,stage);
+
+var loseText = new createjs.Text("Вы проиграли >:\\\nНажмите \"R\" чтобы\nначать сначала", "50px Arial", "#ff0000");
+loseText.x = 900;
+loseText.y = 200;
+loseText.textAlign = "center";
+loseText.visible = false;
+stage.addChild(loseText);
+
 
 var spawnerView = new SpawnerView(100, 150, 50, 50);
 spawnerView.addToStage(stage);
@@ -122,6 +130,7 @@ Events.on(engine, 'collisionEnd', function (event) {
 deadZone.addEventListener("gameOver", function () {
     spawnerController.canSpawn = false;
     console.log("Вы проиграли!");
+    loseText.visible = true;
 });
 
 
@@ -174,6 +183,7 @@ function restartGame(){
     });
 
     objectsToUpdate = objectsToUpdate.filter(obj => !(obj instanceof Circle));
+    loseText.visible = false;
 }
 
 function removeObject(world, stage, obj) {
