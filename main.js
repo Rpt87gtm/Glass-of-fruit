@@ -52,7 +52,7 @@ objectsToUpdate.push(wall_2);
 
 
 
-World.add(world, [floor]);
+
 Runner.run(engine);
 
 
